@@ -11,8 +11,11 @@ class DirUtils {
 
     switch (os) {
       case 'windows':
+        appDataDir =Platform.environment['RUSH_PATH']!
+        if(!appDataDir.existsSync()){
         appDataDir =
             p.join(Platform.environment['UserProfile']!, 'AppData', 'Roaming');
+        }
         break;
 
       case 'macos':
