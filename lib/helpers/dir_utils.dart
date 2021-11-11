@@ -7,12 +7,12 @@ import 'package:rush_prompt/rush_prompt.dart';
 class DirUtils {
   static String? dataDir() {
     var os = Platform.operatingSystem;
-    late String appDataDir;
+    String? appDataDir = null;
 
     switch (os) {
       case 'windows':
-        appDataDir =Platform.environment['RUSH_PATH']!;
-        if(!Directory(appDataDir).existsSync()){
+        appDataDir =Platform.environment['RUSH_PATH'];
+        if(appDataDir == null){
         appDataDir =
             p.join(Platform.environment['UserProfile']!, 'AppData', 'Roaming');
         }
@@ -31,7 +31,7 @@ class DirUtils {
         break;
     }
 
-    final dataDir = Directory(p.join(appDataDir, 'rush'));
+    final dataDir = Directory(p.join(appDataDir!, 'rush'));
     if (!dataDir.existsSync()) {
       Logger.log(LogType.erro, 'Rush data directory doesn\'t exists');
       exit(1);
